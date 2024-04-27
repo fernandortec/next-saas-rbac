@@ -1,0 +1,23 @@
+{
+  "name": "next-saas-rbac",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.7.0",
+    "turbo": "latest"
+  },
+  "packageManager": "bun@1.1.4",
+  "workspaces": ["apps/*", "packages/*"],
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
+  },
+  "dependencies": {
+    "bcrypt-ts": "^5.0.2"
+  }
+}

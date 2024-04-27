@@ -1,0 +1,9 @@
+{
+	"extends": "@saas/tsconfig/base.json",
+	"include": ["src/**/*"],
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
+}
