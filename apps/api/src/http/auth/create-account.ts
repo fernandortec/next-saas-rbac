@@ -25,10 +25,26 @@ export const createAccount = new Hono().post(
 			return c.json({ message: 'User with same e-mail already exists' }, 400);
 		}
 
+		const [, domain] = email.split('@');
+		const authJoinOrganization = await prisma.organization.findFirst({
+			where: { domain, shouldAttachUsersByDomain: true },
+		});
+
 		const passwordHash = await hash(password, 6);
 
 		const user = await prisma.user.create({
-			data: { email, name, passwordHash },
+			data: {
+				email,
+				name,
+				passwordHash,
+				memberOn: authJoinOrganization
+					? {
+							create: {
+								organizationId: authJoinOrganization.id,
+							},
+						}
+					: undefined,
+			},
 		});
 
 		return c.json({ user }, 204);
