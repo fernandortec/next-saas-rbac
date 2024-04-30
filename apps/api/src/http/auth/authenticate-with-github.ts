@@ -3,6 +3,7 @@ import Elysia, { t } from 'elysia';
 import { Value } from '@sinclair/typebox/value';
 import { BadRequestError } from '@/http/_errors/bad-request-error';
 import { prisma } from '@/lib/prisma';
+import { env } from '@saas/env';
 
 export const authenticateWithGithub = new Elysia().use(jwtHandler).post(
 	'/auth/github',
@@ -12,15 +13,15 @@ export const authenticateWithGithub = new Elysia().use(jwtHandler).post(
 		const githubOauthURL = new URL(
 			'https://github.com/login/oauth/access_token'
 		);
-		githubOauthURL.searchParams.set('client_id', '611d6698a8186d1fac38');
+		githubOauthURL.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID);
 		githubOauthURL.searchParams.set('code', code);
 		githubOauthURL.searchParams.set(
 			'client_secret',
-			'a01ab492d3f90586f10065d6feef5207a2259031'
+			env.GITHUB_OAUTH_CLIENT_SECRET
 		);
 		githubOauthURL.searchParams.set(
 			'redirect_url',
-			'http://localhost:3000/api/auth/callback'
+			env.GITHUB_OAUTH_REDIRECT_URL
 		);
 
 		const githubAccessTokenResponse = await fetch(githubOauthURL, {

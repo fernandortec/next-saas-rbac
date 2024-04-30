@@ -14,7 +14,21 @@ export type App = typeof app;
 
 app
 	.use(cors())
-	.use(swagger())
+	.use(
+		swagger({
+			documentation: {
+				components: {
+					securitySchemes: {
+						bearerAuth: {
+							type: 'http',
+							scheme: 'bearer',
+							bearerFormat: 'JWT',
+						},
+					},
+				},
+			},
+		})
+	)
 	.onError((ctx) => errorHandler(ctx))
 	.use(authenticateWithPassword)
 	.use(createAccount)

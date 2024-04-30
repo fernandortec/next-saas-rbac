@@ -1,8 +1,9 @@
 import { jwt, type JWTPayloadSpec } from '@elysiajs/jwt';
+import { env } from '@saas/env';
 import Elysia from 'elysia';
 
 export const jwtHandler = new Elysia()
-	.use(jwt({ name: 'jwt', secret: 'a very hidden secret' }))
+	.use(jwt({ name: 'jwt', secret: env.JWT_SECRET }))
 	.derive({ as: 'global' }, ({ jwt }) => ({
 		jwtSign: async (payload: { [key: string]: string }): Promise<string> => {
 			const token = await jwt.sign(payload);

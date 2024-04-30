@@ -5,13 +5,16 @@
 	"main": "./src/index.ts",
 	"type": "module",
 	"scripts": {
-		"dev": "bun --watch src/http/server.ts",
-		"build": "bun build src/http/server.ts",
+		"dev": "bun env:load bun --watch src/http/server.ts",
+		"db:migrate": "bun env:load prisma migrate dev",
+		"db:studio": "bun env:load prisma studio",
+		"seed": "bun ./prisma/seed.ts",
 		"start": "NODE_ENV=production bun src/http/server.ts",
-		"test": "bun test",
-		"seed": "bun ./prisma/seed.ts"
+
+		"env:load": "dotenv -e ../../.env --"
 	},
 	"dependencies": {
+		"@saas/env": "workspace:*",
 		"@elysiajs/cors": "^1.0.2",
 		"@faker-js/faker": "^8.4.1",
 		"@prisma/client": "5.13.0",
@@ -24,6 +27,7 @@
 	"devDependencies": {
 		"@saas/tsconfig": "workspace:*",
 		"@types/bun": "latest",
+		"dotenv-cli": "^7.4.1",
 		"prisma": "^5.13.0"
 	}
 }
