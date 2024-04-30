@@ -1,6 +1,7 @@
 import { app } from '@/http/app';
 
-export default {
-	port: 3333,
-	fetch: app.fetch,
-};
+app.listen(3333, () => {
+	console.log(
+		`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`
+	);
+});

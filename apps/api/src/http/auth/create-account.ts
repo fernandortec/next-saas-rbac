@@ -1,28 +1,19 @@
 import { prisma } from '@/lib/prisma';
-import { zValidator } from '@hono/zod-validator';
 import { hash } from 'bcrypt-ts';
-import { Hono } from 'hono';
-import { z } from 'zod';
+import Elysia, { t } from 'elysia';
 
-export const createAccount = new Hono().post(
-	'/',
-	zValidator(
-		'json',
-		z.object({
-			name: z.string(),
-			email: z.string().email(),
-			password: z.string().min(6),
-		})
-	),
-	async (c): Promise<Response> => {
-		const { name, email, password } = c.req.valid('json');
+export const createAccount = new Elysia().post(
+	'/users',
+	async ({ body, set }) => {
+		const { name, email, password } = body;
 
 		const userWithSameEmail = await prisma.user.findUnique({
 			where: { email },
 		});
 
 		if (userWithSameEmail) {
-			return c.json({ message: 'User with same e-mail already exists' }, 400);
+			set.status = 404;
+			return { message: 'User with same e-mail already exists' };
 		}
 
 		const [, domain] = email.split('@');
@@ -47,6 +38,13 @@ export const createAccount = new Hono().post(
 			},
 		});
 
-		return c.json({ user }, 204);
+		return { user };
+	},
+	{
+		body: t.Object({
+			name: t.String(),
+			email: t.String({ format: 'email' }),
+			password: t.String({ minLength: 6 }),
+		}),
 	}
 );

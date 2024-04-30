@@ -1,13 +1,9 @@
 import { authenticateWithPassword } from '@/http/auth/authenticate-with-password';
 import { createAccount } from '@/http/auth/create-account';
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
+import cors from '@elysiajs/cors';
+import Elysia from 'elysia';
 
-export const app = new Hono();
-export type AppType = typeof app;
+export const app = new Elysia();
+export type App = typeof app;
 
-app.use('/', cors());
-
-app.route('/', authenticateWithPassword);
-app.route('/users', createAccount);
-app.route('/auth', authenticateWithPassword)
+app.use(cors()).use(authenticateWithPassword).use(createAccount)
