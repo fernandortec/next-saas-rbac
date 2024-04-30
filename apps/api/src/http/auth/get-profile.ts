@@ -1,15 +1,16 @@
 import { BadRequestError } from '@/http/_errors/bad-request-error';
-import { jwtPlugin } from '@/http/plugins/jwt';
+import { auth } from '@/http/plugins/auth';
 import { prisma } from '@/lib/prisma';
 import Elysia, { t } from 'elysia';
 
-export const getProfile = new Elysia().use(jwtPlugin).get(
+export const getProfile = new Elysia().use(auth).get(
 	'/me',
-	async ({ jwtVerify, headers }) => {
-		const { sub } = await jwtVerify(headers.authorization);
+	async ({ getCurrentUserId }) => {
+		const userId = await getCurrentUserId();
+
 		const user = await prisma.user.findUnique({
 			select: { id: true, name: true, email: true, avatarUrl: true },
-			where: { id: sub },
+			where: { id: userId },
 		});
 
 		if (!user) throw new BadRequestError('User not found');

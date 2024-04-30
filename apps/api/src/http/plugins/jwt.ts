@@ -1,7 +1,7 @@
-import jwt, { type JWTPayloadSpec } from '@elysiajs/jwt';
+import { jwt, type JWTPayloadSpec } from '@elysiajs/jwt';
 import Elysia from 'elysia';
 
-export const jwtPlugin = new Elysia()
+export const jwtHandler = new Elysia()
 	.use(jwt({ name: 'jwt', secret: 'a very hidden secret' }))
 	.derive({ as: 'global' }, ({ jwt }) => ({
 		jwtSign: async (payload: { [key: string]: string }): Promise<string> => {

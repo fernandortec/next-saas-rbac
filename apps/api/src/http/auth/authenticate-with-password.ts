@@ -1,10 +1,10 @@
 import { BadRequestError } from '@/http/_errors/bad-request-error';
-import { jwtPlugin } from '@/http/plugins/jwt';
+import { jwtHandler } from '@/http/plugins/jwt';
 import { prisma } from '@/lib/prisma';
 import { compare } from 'bcrypt-ts';
 import Elysia, { t } from 'elysia';
 
-export const authenticateWithPassword = new Elysia().use(jwtPlugin).post(
+export const authenticateWithPassword = new Elysia().use(jwtHandler).post(
 	'/auth/login',
 	async ({ body, set, jwt }) => {
 		const { email, password } = body;
