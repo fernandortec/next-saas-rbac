@@ -1,4 +1,4 @@
-import { jwtPlugin } from '@/http/plugin/jwt';
+import { jwtPlugin } from '@/http/plugins/jwt';
 import { prisma } from '@/lib/prisma';
 import Elysia, { t } from 'elysia';
 
