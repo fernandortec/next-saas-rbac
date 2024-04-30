@@ -46,5 +46,9 @@ export const createAccount = new Elysia().post(
 			email: t.String({ format: 'email' }),
 			password: t.String({ minLength: 6 }),
 		}),
+		detail: {
+			summary: 'Create account',
+			tags: ['user'],
+		},
 	}
 );

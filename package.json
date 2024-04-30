@@ -16,8 +16,5 @@
     "commitizen": {
       "path": "cz-emoji"
     }
-  },
-  "dependencies": {
-    "bcrypt-ts": "^5.0.2"
   }
 }
