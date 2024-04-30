@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/http/_errors/bad-request-error';
 import { jwtPlugin } from '@/http/plugins/jwt';
 import { prisma } from '@/lib/prisma';
 import Elysia, { t } from 'elysia';
@@ -11,7 +12,7 @@ export const getProfile = new Elysia().use(jwtPlugin).get(
 			where: { id: sub },
 		});
 
-		if (!user) throw new Error('User not found');
+		if (!user) throw new BadRequestError('User not found');
 
 		return user;
 	},

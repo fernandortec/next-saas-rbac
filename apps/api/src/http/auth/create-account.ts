@@ -1,3 +1,4 @@
+import { BadRequestError } from '@/http/_errors/bad-request-error';
 import { prisma } from '@/lib/prisma';
 import { hash } from 'bcrypt-ts';
 import Elysia, { t } from 'elysia';
@@ -13,7 +14,7 @@ export const createAccount = new Elysia().post(
 
 		if (userWithSameEmail) {
 			set.status = 404;
-			return { message: 'User with same e-mail already exists' };
+			throw new BadRequestError('User with same e-mail already exists');
 		}
 
 		const [, domain] = email.split('@');
