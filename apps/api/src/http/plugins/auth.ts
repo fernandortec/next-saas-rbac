@@ -7,7 +7,7 @@ import Elysia from 'elysia';
 export const auth = new Elysia()
 	.use(jwtHandler)
 	.derive({ as: 'scoped' }, ({ jwtVerify, headers }) => ({
-		getCurrentUserId: async (): Promise<string> => {
+		getCurrentUserId: async (): Promise<{ userId: string }> => {
 			try {
 				if (!headers.authorization)
 					throw new UnauthorizedError('No auth token is provided');
@@ -15,7 +15,7 @@ export const auth = new Elysia()
 				const { sub } = await jwtVerify(headers.authorization);
 				if (!sub) throw new UnauthorizedError('User does not exists in token');
 
-				return sub;
+				return { userId: sub };
 			} catch (error) {
 				throw new UnauthorizedError('Could not authenticate user, login again');
 			}

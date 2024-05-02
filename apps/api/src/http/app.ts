@@ -7,6 +7,8 @@ import { resetPassword } from '@/http/auth/reset-password';
 import { errorHandler } from '@/http/error-handler';
 import { createOrganization } from '@/http/orgs/create-organization';
 import { getMembership } from '@/http/orgs/get-membership';
+import { getOrganization } from '@/http/orgs/get-organization';
+import { getOrganizationsByUser } from '@/http/orgs/get-organizations-by-user';
 import cors from '@elysiajs/cors';
 import swagger from '@elysiajs/swagger';
 import Elysia from 'elysia';
@@ -39,4 +41,6 @@ app
 	.use(resetPassword)
 	.use(authenticateWithGithub)
 	.use(createOrganization)
-	.use(getMembership);
+	.use(getMembership)
+	.use(getOrganization)
+	.use(getOrganizationsByUser);

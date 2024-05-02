@@ -8,8 +8,7 @@ export const createOrganization = new Elysia().use(auth).post(
 	'/organizations',
 	async ({ body, getCurrentUserId, set }) => {
 		const { name, domain, shouldAttachUsersByDomain } = body;
-
-		const userId = await getCurrentUserId();
+		const { userId } = await getCurrentUserId();
 
 		if (domain) {
 			const organizationByDomain = await prisma.organization.findUnique({

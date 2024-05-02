@@ -5,8 +5,8 @@ export const getMembership = new Elysia().use(auth).get(
 	'/organizations/:slug/membership',
 	async ({ getCurrentUserId, getUserMembership, params }) => {
 		const { slug } = params;
-		const userId = await getCurrentUserId();
 
+		const { userId } = await getCurrentUserId();
 		const { membership } = await getUserMembership(slug, userId);
 
 		return {

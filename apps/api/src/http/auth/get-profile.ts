@@ -6,7 +6,7 @@ import Elysia, { t } from 'elysia';
 export const getProfile = new Elysia().use(auth).get(
 	'/me',
 	async ({ getCurrentUserId }) => {
-		const userId = await getCurrentUserId();
+		const { userId } = await getCurrentUserId();
 
 		const user = await prisma.user.findUnique({
 			select: { id: true, name: true, email: true, avatarUrl: true },
