@@ -5,13 +5,11 @@
 	"main": "./src/index.ts",
 	"type": "module",
 	"scripts": {
-		"dev": "bun env:load bun --watch src/http/server.ts",
-		"db:migrate": "bun env:load prisma migrate dev",
-		"db:studio": "bun env:load prisma studio",
+		"dev": "bun --env-file=../../env --watch src/http/server.ts",
+		"db:migrate": "bun --env-file=../../env prisma migrate dev",
+		"db:studio": "bun --env-file=../../env prisma studio",
 		"seed": "bun ./prisma/seed.ts",
-		"start": "NODE_ENV=production bun src/http/server.ts",
-
-		"env:load": "dotenv -e ../../.env --"
+		"start": "NODE_ENV=production bun src/http/server.ts"
 	},
 	"dependencies": {
 		"@saas/env": "workspace:*",
@@ -27,7 +25,6 @@
 	"devDependencies": {
 		"@saas/tsconfig": "workspace:*",
 		"@types/bun": "latest",
-		"dotenv-cli": "^7.4.1",
 		"prisma": "^5.13.0"
 	}
 }
