@@ -9,6 +9,9 @@ import { createOrganization } from '@/http/orgs/create-organization';
 import { getMembership } from '@/http/orgs/get-membership';
 import { getOrganization } from '@/http/orgs/get-organization';
 import { getOrganizationsByUser } from '@/http/orgs/get-organizations-by-user';
+import { shutdownOrganization } from '@/http/orgs/shutdown-organization';
+import { transferOrganization } from '@/http/orgs/transfer-organization';
+import { updateOrganization } from '@/http/orgs/update-organization';
 import cors from '@elysiajs/cors';
 import swagger from '@elysiajs/swagger';
 import Elysia from 'elysia';
@@ -43,4 +46,7 @@ app
 	.use(createOrganization)
 	.use(getMembership)
 	.use(getOrganization)
-	.use(getOrganizationsByUser);
+	.use(getOrganizationsByUser)
+	.use(updateOrganization)
+	.use(shutdownOrganization)
+	.use(transferOrganization);
