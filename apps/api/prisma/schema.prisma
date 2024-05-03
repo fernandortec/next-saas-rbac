@@ -35,7 +35,7 @@ model Token {
   type TokenType
 
   userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -53,7 +53,7 @@ model Account {
   providerAccountId String          @unique @map("provider_account_id")
 
   userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, userId])
   @@map("accounts")
@@ -72,7 +72,7 @@ model Invite {
   createdAt DateTime @default(now()) @map("created_at")
 
   authorId String? @map("author_id")
-  author User?   @relation(fields: [authorId], references: [id])
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
 
   organizationId String       @map("organization_id")
   organization   Organization @relation(fields: [organizationId], references: [id])
@@ -87,10 +87,10 @@ model Member {
   role Role   @default(member)
 
   organizationId String       @map("organization_id")
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([organizationId, userId])
   @@map("members")
@@ -131,7 +131,7 @@ model Project {
   owner   User   @relation(fields: [ownerId], references: [id])
 
   organizationId String       @map("organization_id")
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@map("projects")
 }

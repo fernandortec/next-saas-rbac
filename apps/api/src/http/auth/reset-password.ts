@@ -18,12 +18,15 @@ export const resetPassword = new Elysia().post(
 
 		const passwordHash = await hash(newPassword, 6);
 
-		await prisma.user.update({
-			where: { id: tokenFromCode.userId },
-			data: { passwordHash: passwordHash },
-		});
+		await prisma.$transaction([
+			prisma.user.update({
+				where: { id: tokenFromCode.userId },
+				data: { passwordHash: passwordHash },
+			}),
+			prisma.token.delete({ where: { id: code } }),
+		]);
 
-    set.status = 204
+		set.status = 204;
 	},
 	{
 		detail: {

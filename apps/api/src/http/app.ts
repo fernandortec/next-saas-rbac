@@ -4,9 +4,15 @@ import { createAccount } from '@/http/auth/create-account';
 import { getProfile } from '@/http/auth/get-profile';
 import { requestpasswordRecover } from '@/http/auth/request-password-recover';
 import { resetPassword } from '@/http/auth/reset-password';
+import { getOrganizationBillings } from '@/http/billing/get-organization-billing';
 import { errorHandler } from '@/http/error-handler';
+import { acceptInvite } from '@/http/invites/accept-invite';
 import { createInvite } from '@/http/invites/create-invite';
 import { getInvite } from '@/http/invites/get-invite';
+import { getPendingInvites } from '@/http/invites/get-pending-invites';
+import { listInvites } from '@/http/invites/list-invites';
+import { rejectInvite } from '@/http/invites/reject-invite';
+import { revokeInvite } from '@/http/invites/revoke-invite';
 import { listOrganizationMembers } from '@/http/members/list-organization-members';
 import { removeMember } from '@/http/members/remove-member';
 import { updateMember } from '@/http/members/update-member';
@@ -69,4 +75,10 @@ app
 	.use(updateMember)
 	.use(removeMember)
 	.use(createInvite)
-	.use(getInvite);
+	.use(getInvite)
+	.use(listInvites)
+	.use(acceptInvite)
+	.use(rejectInvite)
+	.use(revokeInvite)
+	.use(getPendingInvites)
+	.use(getOrganizationBillings);
