@@ -2,7 +2,6 @@ import { getUserPermissions } from '@/helpers/get-user-permissions';
 import { UnauthorizedError } from '@/http/_errors/unauthorized-error';
 import { auth } from '@/http/plugins/auth';
 import { prisma } from '@/lib/prisma';
-import { $Enums } from '@prisma/client';
 import Elysia, { t } from 'elysia';
 
 export const listOrganizationMembers = new Elysia().use(auth).get(
