@@ -5,14 +5,14 @@ import { auth } from '@/http/plugins/auth';
 import { prisma } from '@/lib/prisma';
 import Elysia, { t } from 'elysia';
 
-export const updateProject = new Elysia().use(auth).get(
+export const updateProject = new Elysia().use(auth).put(
 	'/organizations/:slug/projects/:projectId',
 	async ({ getCurrentUserId, getUserMembership, params, body }) => {
 		const { userId } = await getCurrentUserId();
-		const { orgSlug, projectId } = params;
+		const { slug	, projectId } = params;
 
 		const { membership, organization } = await getUserMembership(
-			orgSlug,
+			slug	,
 			userId
 		);
 
@@ -40,7 +40,7 @@ export const updateProject = new Elysia().use(auth).get(
 		return project;
 	},
 	{
-		params: t.Object({ orgSlug: t.String(), projectId: t.String() }),
+		params: t.Object({ slug	: t.String(), projectId: t.String() }),
 		body: t.Object({ name: t.String(), description: t.String() }),
 		detail: {
 			summary: 'Update project',

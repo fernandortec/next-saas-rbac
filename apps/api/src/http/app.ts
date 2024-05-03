@@ -5,6 +5,7 @@ import { getProfile } from '@/http/auth/get-profile';
 import { requestpasswordRecover } from '@/http/auth/request-password-recover';
 import { resetPassword } from '@/http/auth/reset-password';
 import { errorHandler } from '@/http/error-handler';
+import { listOrganizationMembers } from '@/http/members/list-organization-members';
 import { createOrganization } from '@/http/orgs/create-organization';
 import { getMembership } from '@/http/orgs/get-membership';
 import { getOrganization } from '@/http/orgs/get-organization';
@@ -59,4 +60,5 @@ app
 	.use(deleteProject)
 	.use(getProject)
 	.use(listProjects)
-	.use(updateProject);
+	.use(updateProject)
+	.use(listOrganizationMembers);
