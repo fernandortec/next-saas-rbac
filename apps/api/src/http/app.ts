@@ -12,6 +12,11 @@ import { getOrganizationsByUser } from '@/http/orgs/get-organizations-by-user';
 import { shutdownOrganization } from '@/http/orgs/shutdown-organization';
 import { transferOrganization } from '@/http/orgs/transfer-organization';
 import { updateOrganization } from '@/http/orgs/update-organization';
+import { createProject } from '@/http/projects/create-project';
+import { deleteProject } from '@/http/projects/delete-project';
+import { getProject } from '@/http/projects/get-project';
+import { listProjects } from '@/http/projects/list-projects';
+import { updateProject } from '@/http/projects/update-project';
 import cors from '@elysiajs/cors';
 import swagger from '@elysiajs/swagger';
 import Elysia from 'elysia';
@@ -49,4 +54,9 @@ app
 	.use(getOrganizationsByUser)
 	.use(updateOrganization)
 	.use(shutdownOrganization)
-	.use(transferOrganization);
+	.use(transferOrganization)
+	.use(createProject)
+	.use(deleteProject)
+	.use(getProject)
+	.use(listProjects)
+	.use(updateProject);
