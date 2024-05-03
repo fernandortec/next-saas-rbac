@@ -97,13 +97,14 @@ export const authenticateWithGithub = new Elysia().use(jwtHandler).post(
 			exp: 1000 * 60 * 60 * 24 * 7, // 7 days
 		});
 
-		return token;
+		return { token };
 	},
 
 	{
 		body: t.Object({
 			code: t.String(),
 		}),
+		response: t.Object({ token: t.String() }),
 		detail: {
 			summary: 'Login with github',
 			tags: ['auth'],

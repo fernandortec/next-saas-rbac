@@ -50,6 +50,7 @@ export const updateOrganization = new Elysia().use(auth).put(
 			domain: t.Optional(t.Nullable(t.String())),
 			shouldAttachUsersByDomain: t.Optional(t.Boolean()),
 		}),
+		response: t.Void(),
 		detail: {
 			tags: ['organizations'],
 			summary: 'Updat Organization',

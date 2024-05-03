@@ -9,7 +9,7 @@ export const getOrganization = new Elysia().use(auth).get(
 		const { userId } = await getCurrentUserId();
 		const { organization } = await getUserMembership(slug, userId);
 
-		return organization;
+		return { organization };
 	},
 	{
 		params: t.Object({ slug: t.String() }),
@@ -18,15 +18,17 @@ export const getOrganization = new Elysia().use(auth).get(
 			summary: 'Get details from an organization',
 		},
 		response: t.Object({
-			id: t.String(),
-			name: t.String(),
-			slug: t.String(),
-			domain: t.Nullable(t.String()),
-			avatarUrl: t.Nullable(t.String()),
-			shouldAttachUsersByDomain: t.Boolean(),
-			createdAt: t.Date(),
-			updatedAt: t.Date(),
-			ownerId: t.String(),
+			organization: t.Object({
+				id: t.String(),
+				name: t.String(),
+				slug: t.String(),
+				domain: t.Nullable(t.String()),
+				avatarUrl: t.Nullable(t.String()),
+				shouldAttachUsersByDomain: t.Boolean(),
+				createdAt: t.Date(),
+				updatedAt: t.Date(),
+				ownerId: t.String(),
+			}),
 		}),
 	}
 );

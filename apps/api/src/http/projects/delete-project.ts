@@ -39,6 +39,7 @@ export const deleteProject = new Elysia().use(auth).delete(
 	},
 	{
 		params: t.Object({ slug: t.String(), projectId: t.String() }),
+		response: t.Void(),
 		detail: {
 			summary: 'Delete a project',
 			tags: ['projects'],

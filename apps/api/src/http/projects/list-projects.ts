@@ -20,7 +20,7 @@ export const listProjects = new Elysia().use(auth).get(
 			);
 		}
 
-		const project = await prisma.project.findMany({
+		const projects = await prisma.project.findMany({
 			where: { organizationId: organization.id },
 			select: {
 				id: true,
@@ -36,27 +36,29 @@ export const listProjects = new Elysia().use(auth).get(
 			orderBy: { createdAt: 'desc' },
 		});
 
-		return project;
+		return { projects };
 	},
 	{
 		params: t.Object({ slug: t.String() }),
-		response: t.Array(
-			t.Object({
-				name: t.String(),
-				description: t.String(),
-				id: t.String(),
-				slug: t.String(),
-				avatarUrl: t.Nullable(t.String()),
-				ownerId: t.String(),
-				organizationId: t.String(),
-				owner: t.Object({
-					name: t.Nullable(t.String()),
+		response: t.Object({
+			projects: t.Array(
+				t.Object({
+					name: t.String(),
+					description: t.String(),
 					id: t.String(),
+					slug: t.String(),
 					avatarUrl: t.Nullable(t.String()),
-				}),
-				createdAt: t.Date(),
-			})
-		),
+					ownerId: t.String(),
+					organizationId: t.String(),
+					owner: t.Object({
+						name: t.Nullable(t.String()),
+						id: t.String(),
+						avatarUrl: t.Nullable(t.String()),
+					}),
+					createdAt: t.Date(),
+				})
+			),
+		}),
 		detail: {
 			summary: 'List projects',
 			tags: ['projects'],

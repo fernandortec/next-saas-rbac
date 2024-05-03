@@ -42,7 +42,7 @@ export const createOrganization = new Elysia().use(auth).post(
 			domain: t.Optional(t.Nullable(t.String())),
 			shouldAttachUsersByDomain: t.Optional(t.Boolean()),
 		}),
-		detail: { tags: ['organization'], summary: 'Create a new organization' },
 		response: t.Object({ organzationId: t.String() }),
+		detail: { tags: ['organization'], summary: 'Create a new organization' },
 	}
 );

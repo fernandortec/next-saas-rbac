@@ -60,6 +60,7 @@ export const transferOrganization = new Elysia().use(auth).delete(
 			tags: ['organizations'],
 			summary: 'Transfer Organization',
 		},
+		response: t.Void(),
 		body: t.Object({ transferToUserId: t.String() }),
 		params: t.Object({ slug: t.String() }),
 	}

@@ -47,8 +47,7 @@ export const authenticateWithPassword = new Elysia().use(jwtHandler).post(
 			tags: ['auth'],
 		},
 		response: t.Object({
-			message: t.Optional(t.String()),
-			token: t.Optional(t.String()),
+			token: t.String(),
 		}),
 	}
 );

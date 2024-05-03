@@ -1,12 +1,13 @@
 import { getUserPermissions } from '@/helpers/get-user-permissions';
+import { BadRequestError } from '@/http/_errors/bad-request-error';
 import { UnauthorizedError } from '@/http/_errors/unauthorized-error';
 import { auth } from '@/http/plugins/auth';
 import { prisma } from '@/lib/prisma';
 import Elysia, { t } from 'elysia';
 
-export const listOrganizationMembers = new Elysia().use(auth).get(
-	'/organizations/:slug/members',
-	async ({ getCurrentUserId, getUserMembership, params }) => {
+export const listInvites = new Elysia().use(auth).post(
+	'/organizations/:slug/invites',
+	async ({ body, getCurrentUserId, getUserMembership, params, set }) => {
 		const { userId } = await getCurrentUserId();
 		const { slug } = params;
 
@@ -14,45 +15,47 @@ export const listOrganizationMembers = new Elysia().use(auth).get(
 
 		const { cannot } = getUserPermissions(userId, membership.role);
 
-		if (cannot('get', 'User')) {
+		if (cannot('get', 'Project')) {
 			throw new UnauthorizedError(
-				"You're not allowed to see organization members"
+				"You're not allowed to get organization invites"
 			);
 		}
 
-		const members = await prisma.member.findMany({
+		const invites = await prisma.invite.findMany({
 			where: { organizationId: organization.id },
 			select: {
 				id: true,
+				email: true,
 				role: true,
-				user: {
-					select: { id: true, name: true, email: true, avatarUrl: true },
-				},
+				createdAt: true,
+				author: { select: { id: true, name: true } },
 			},
-			orderBy: { role: 'asc' },
+			orderBy: { createdAt: 'desc' },
 		});
 
-		return { members };
+		return { invites };
 	},
 	{
 		params: t.Object({ slug: t.String() }),
 		response: t.Object({
-			members: t.Array(
+			invites: t.Array(
 				t.Object({
 					id: t.String(),
+					email: t.String(),
 					role: t.String(),
-					user: t.Object({
-						name: t.Nullable(t.String()),
-						id: t.String(),
-						email: t.String(),
-						avatarUrl: t.Nullable(t.String()),
-					}),
+					createdAt: t.Date(),
+					author: t.Nullable(
+						t.Object({
+							id: t.String(),
+							name: t.Nullable(t.String()),
+						})
+					),
 				})
 			),
 		}),
 		detail: {
-			summary: 'List all organization members',
-			tags: ['members'],
+			summary: 'Get all organization invites',
+			tags: ['invites'],
 		},
 	}
 );

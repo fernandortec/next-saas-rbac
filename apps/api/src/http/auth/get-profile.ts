@@ -15,7 +15,7 @@ export const getProfile = new Elysia().use(auth).get(
 
 		if (!user) throw new BadRequestError('User not found');
 
-		return user;
+		return { user };
 	},
 	{
 		detail: {
@@ -24,10 +24,12 @@ export const getProfile = new Elysia().use(auth).get(
 		},
 		headers: t.Object({ authorization: t.String() }),
 		response: t.Object({
-			name: t.Nullable(t.String()),
-			id: t.String(),
-			email: t.String(),
-			avatarUrl: t.Nullable(t.String()),
+			user: t.Object({
+				name: t.Nullable(t.String()),
+				id: t.String(),
+				email: t.String(),
+				avatarUrl: t.Nullable(t.String()),
+			}),
 		}),
 	}
 );

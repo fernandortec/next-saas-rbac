@@ -5,6 +5,8 @@ import { getProfile } from '@/http/auth/get-profile';
 import { requestpasswordRecover } from '@/http/auth/request-password-recover';
 import { resetPassword } from '@/http/auth/reset-password';
 import { errorHandler } from '@/http/error-handler';
+import { createInvite } from '@/http/invites/create-invite';
+import { getInvite } from '@/http/invites/get-invite';
 import { listOrganizationMembers } from '@/http/members/list-organization-members';
 import { removeMember } from '@/http/members/remove-member';
 import { updateMember } from '@/http/members/update-member';
@@ -65,4 +67,6 @@ app
 	.use(updateProject)
 	.use(listOrganizationMembers)
 	.use(updateMember)
-	.use(removeMember);
+	.use(removeMember)
+	.use(createInvite)
+	.use(getInvite);

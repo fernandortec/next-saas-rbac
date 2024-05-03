@@ -27,6 +27,7 @@ export const shutdownOrganization = new Elysia().use(auth).delete(
 	},
 	{
 		params: t.Object({ slug: t.String() }),
+		response: t.Void(),
 		detail: {
 			tags: ['organizations'],
 			summary: 'Shtudown Organization',

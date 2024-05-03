@@ -9,12 +9,9 @@ export const updateProject = new Elysia().use(auth).put(
 	'/organizations/:slug/projects/:projectId',
 	async ({ getCurrentUserId, getUserMembership, params, body }) => {
 		const { userId } = await getCurrentUserId();
-		const { slug	, projectId } = params;
+		const { slug, projectId } = params;
 
-		const { membership, organization } = await getUserMembership(
-			slug	,
-			userId
-		);
+		const { membership, organization } = await getUserMembership(slug, userId);
 
 		const project = await prisma.project.findUnique({
 			where: { id: projectId, organizationId: organization.id },
@@ -40,8 +37,9 @@ export const updateProject = new Elysia().use(auth).put(
 		return project;
 	},
 	{
-		params: t.Object({ slug	: t.String(), projectId: t.String() }),
+		params: t.Object({ slug: t.String(), projectId: t.String() }),
 		body: t.Object({ name: t.String(), description: t.String() }),
+		response: t.Void(),
 		detail: {
 			summary: 'Update project',
 			tags: ['projects'],

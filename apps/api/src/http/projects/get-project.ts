@@ -40,26 +40,28 @@ export const getProject = new Elysia().use(auth).get(
 			throw new BadRequestError('Project does not exists');
 		}
 
-		return project;
+		return { project };
 	},
 	{
 		params: t.Object({ orgSlug: t.String(), projectSlug: t.String() }),
-		response: t.Nullable(
-			t.Object({
-				name: t.String(),
-				description: t.String(),
-				id: t.String(),
-				slug: t.String(),
-				avatarUrl: t.Nullable(t.String()),
-				ownerId: t.String(),
-				organizationId: t.String(),
-				owner: t.Object({
-					name: t.Nullable(t.String()),
+		response: t.Object({
+			project: t.Nullable(
+				t.Object({
+					name: t.String(),
+					description: t.String(),
 					id: t.String(),
+					slug: t.String(),
 					avatarUrl: t.Nullable(t.String()),
-				}),
-			})
-		),
+					ownerId: t.String(),
+					organizationId: t.String(),
+					owner: t.Object({
+						name: t.Nullable(t.String()),
+						id: t.String(),
+						avatarUrl: t.Nullable(t.String()),
+					}),
+				})
+			),
+		}),
 		detail: {
 			summary: 'Get project detail',
 			tags: ['projects'],

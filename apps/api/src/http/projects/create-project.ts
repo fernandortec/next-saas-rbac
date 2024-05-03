@@ -32,11 +32,12 @@ export const createProject = new Elysia().use(auth).post(
 
 		set.status = 201;
 
-		return project;
+		return { projectId: project.id };
 	},
 	{
 		body: t.Object({ name: t.String(), description: t.String() }),
 		params: t.Object({ slug: t.String() }),
+		response: t.Object({ projectId: t.String() }),
 		detail: {
 			summary: 'Create a project',
 			tags: ['projects'],
