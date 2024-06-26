@@ -8,15 +8,23 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^14.2.3",
-    "react": "^19.0.0-beta-4508873393-20240430",
-    "react-dom": "^19.0.0-beta-4508873393-20240430"
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@tailwindcss/postcss": "^4.0.0-alpha.16",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "next": "^15.0.0-canary.44",
+    "react": "^19.0.0-rc-8971381549-20240625",
+    "react-dom": "^19.0.0-rc-8971381549-20240625",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^4.0.0-alpha.16"
   },
   "devDependencies": {
     "@saas/tsconfig": "*",
-    "@types/node": "^20.12.8",
-    "@types/react": "^18.3.1",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   }
 }
