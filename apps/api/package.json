@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch src/http/server.ts",
+    "dev": "bun --env-file=../../.env --watch src/http/server.ts",
     "db:migrate": "bun --env-file=../../.env prisma migrate dev",
     "db:studio": "bun --env-file=../../.env prisma studio",
     "seed": "bun ./prisma/seed.ts",
@@ -13,18 +13,18 @@
   },
   "dependencies": {
     "@saas/env": "workspace:*",
-    "@elysiajs/cors": "^1.0.2",
+    "@elysiajs/cors": "^1.1.1",
     "@faker-js/faker": "^8.4.1",
     "@prisma/client": "5.13.0",
     "@saas/auth": "workspace:*",
-    "elysia": "^1.0.25",
-    "@elysiajs/jwt": "^1.0.2",
-    "@elysiajs/swagger": "^1.0.5",
+    "elysia": "^1.1.16",
+    "@elysiajs/jwt": "^1.1.1",
+    "@elysiajs/swagger": "^1.1.1",
     "bcrypt-ts": "^5.0.2"
   },
   "devDependencies": {
     "@saas/tsconfig": "workspace:*",
     "@types/bun": "latest",
-    "prisma": "^5.16.0"
+    "prisma": "^5.20.0"
   }
 }
