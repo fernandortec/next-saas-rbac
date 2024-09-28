@@ -1,45 +1,41 @@
 'use server';
-import { SignInWithPassword } from '@/http/sign-in-with-password';
-import { HTTPError } from 'ky';
-import { z } from 'zod';
 
-const signInSchema = z.object({
+import { SignInWithPassword } from '@/http/sign-in-with-password';
+import { type ActionResponse, actionClient } from '@/lib/next-safe-action';
+import { HTTPError } from 'ky';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
+
+const cookiesClient = await cookies();
+
+const signInSchema = zfd.formData({
 	email: z.string().email({ message: 'Please provide a valid email' }),
 	password: z.string().min(3, { message: 'Please provide your password' }),
 });
 
-interface SignInWithPasswordActionResponse {
-	success: boolean;
-	message: string | null;
-	errors: Record<string, string[]> | null;
-}
+export const signInWithPasswordAction = actionClient
+	.schema(signInSchema)
+	.action(
+		async ({ parsedInput: { email, password } }): Promise<ActionResponse> => {
+			try {
+				const response = await SignInWithPassword({
+					email: email,
+					password: password,
+				});
 
-export async function SignInWithPasswordAction(
-	_: unknown,
-	data: FormData
-): Promise<SignInWithPasswordActionResponse> {
-	const result = signInSchema.safeParse(Object.fromEntries(data));
-	if (!result.success) {
-		return {
-			success: false,
-			message: null,
-			errors: result.error.flatten().fieldErrors,
-		};
-	}
+				cookiesClient.set('token', response.token, {
+					maxAge: 60 * 60 * 24 * 30, // 7 days
+					path: '/',
+				});
+			} catch (error) {
+				if (error instanceof HTTPError) {
+					const { message } = await error.response.json();
+					return { success: false, errors: null, message: message };
+				}
+			}
 
-	const { email, password } = result.data;
-
-	try {
-		const response = await SignInWithPassword({
-			email: email,
-			password: password,
-		});
-	} catch (error) {
-		if (error instanceof HTTPError) {
-			const { message } = await error.response.json();
-			return { success: false, errors: null, message: message };
+			return redirect('/');
 		}
-	}
-
-	return { success: true, errors: null, message: null };
-}
+	);

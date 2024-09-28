@@ -18,11 +18,13 @@
     "ky": "^1.7.2",
     "lucide-react": "^0.446.0",
     "next": "^15.0.0-canary.171",
+    "next-safe-action": "^7.9.3",
     "react": "^19.0.0-rc-fb9a90fa48-20240614",
     "react-dom": "^19.0.0-rc-fb9a90fa48-20240614",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "^4.0.0-alpha.25",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-form-data": "^2.0.2"
   },
   "devDependencies": {
     "@saas/tsconfig": "*",
