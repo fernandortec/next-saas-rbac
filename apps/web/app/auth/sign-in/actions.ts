@@ -21,8 +21,8 @@ export const signInWithPasswordAction = actionClient
 		async ({ parsedInput: { email, password } }): Promise<ActionResponse> => {
 			try {
 				const response = await SignInWithPassword({
-					email: email,
-					password: password,
+					password,
+					email,
 				});
 
 				cookiesClient.set('token', response.token, {
@@ -39,3 +39,21 @@ export const signInWithPasswordAction = actionClient
 			return redirect('/');
 		}
 	);
+
+export const signInWithGithubAction = actionClient
+	.schema(zfd.formData({}))
+	.action(async (): Promise<void> => {
+		const githubSignInURL = new URL(
+			'login/oauth/authorize',
+			'https://github.com'
+		);
+
+		githubSignInURL.searchParams.set('client_id', '611d6698a8186d1fac38');
+		githubSignInURL.searchParams.set(
+			'redirect_uri',
+			'http://localhost:3000/api/auth/callback'
+		);
+		githubSignInURL.searchParams.set('scope', 'user');
+
+		redirect(githubSignInURL.toString());
+	});

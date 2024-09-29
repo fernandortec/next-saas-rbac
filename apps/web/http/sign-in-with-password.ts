@@ -8,6 +8,7 @@ interface SignInWithPasswordRequest {
 interface SignInWithPasswordResponse {
 	token: string;
 }
+
 export async function SignInWithPassword({
 	email,
 	password,

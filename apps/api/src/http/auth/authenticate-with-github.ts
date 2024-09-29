@@ -1,9 +1,9 @@
-import { jwtHandler } from '@/http/plugins/jwt';
-import Elysia, { t } from 'elysia';
-import { Value } from '@sinclair/typebox/value';
 import { BadRequestError } from '@/http/_errors/bad-request-error';
+import { jwtHandler } from '@/http/plugins/jwt';
 import { prisma } from '@/lib/prisma';
 import { env } from '@saas/env';
+import { Value } from '@sinclair/typebox/value';
+import Elysia, { t } from 'elysia';
 
 export const authenticateWithGithub = new Elysia().use(jwtHandler).post(
 	'/auth/github',
