@@ -5,9 +5,11 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 	const cookiesClient = await cookies();
 	const token = cookiesClient.get('token')?.value;
 
+	const whitelist = ['/auth/sign-in', '/api/auth/sign-out', '/api/auth/callback', '/'];
+
 	const { pathname } = request.nextUrl;
 
-	if (!token && pathname !== '/auth/sign-in') {
+	if (!token && !whitelist.includes(pathname)) {
 		return NextResponse.redirect(new URL('/auth/sign-in', request.url));
 	}
 

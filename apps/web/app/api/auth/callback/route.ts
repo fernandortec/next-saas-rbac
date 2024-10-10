@@ -22,6 +22,5 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 	redirectUrl.pathname = '/';
 	redirectUrl.search = '';
 
-
 	return NextResponse.redirect(redirectUrl);
 }

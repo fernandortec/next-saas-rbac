@@ -10,7 +10,7 @@ export const jwtHandler = new Elysia()
 			return token;
 		},
 		jwtVerify: async (token: string): Promise<JWTPayloadSpec> => {
-			const payload = await jwt.verify(token);
+			const payload = await jwt.verify(token.replace("Bearer ",""));
 			if (!payload) throw new Error('Token is not valid');
 
 			return payload;
