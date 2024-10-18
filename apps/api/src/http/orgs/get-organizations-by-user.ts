@@ -7,6 +7,7 @@ export const getOrganizationsByUser = new Elysia().use(auth).get(
 	async ({ getCurrentUserId }) => {
 		const { userId } = await getCurrentUserId();
 
+
 		const organizations = await prisma.organization.findMany({
 			select: {
 				id: true,
