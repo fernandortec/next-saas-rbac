@@ -5,7 +5,12 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 	const cookiesClient = await cookies();
 	const token = cookiesClient.get('token')?.value;
 
-	const whitelist = ['/auth/sign-in', '/api/auth/sign-out', '/api/auth/callback', '/'];
+	const whitelist = [
+		'/auth/sign-in',
+		'/api/auth/sign-out',
+		'/api/auth/callback',
+		'/',
+	];
 
 	const { pathname } = request.nextUrl;
 
@@ -13,6 +18,14 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 		return NextResponse.redirect(new URL('/auth/sign-in', request.url));
 	}
 
+	if (pathname.startsWith('/org')) {
+		const [, , slug] = pathname.split('/');
+		cookiesClient.set('org', slug);
+
+		return NextResponse.next();
+	}
+
+	cookiesClient.delete('org');
 	return NextResponse.next();
 }
 

@@ -16,5 +16,8 @@
     "commitizen": {
       "path": "cz-emoji"
     }
+  },
+  "dependencies": {
+    "next-themes": "^0.3.0"
   }
 }

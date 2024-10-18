@@ -5,7 +5,7 @@
 	"main": "./src/index.ts",
 	"types": "./src/index.ts",
 	"dependencies": {
-		"@saas/tsconfig": "workspace:*",
+		"@saas/tsconfig": "*",
 		"@t3-oss/env-nextjs": "^0.10.1",
 		"zod": "^3.23.8"
 	}

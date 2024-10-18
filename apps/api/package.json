@@ -12,18 +12,18 @@
     "start": "NODE_ENV=production bun src/http/server.ts"
   },
   "dependencies": {
-    "@saas/env": "workspace:*",
+    "@saas/env": "*",
     "@elysiajs/cors": "^1.1.1",
     "@faker-js/faker": "^8.4.1",
     "@prisma/client": "5.13.0",
-    "@saas/auth": "workspace:*",
+    "@saas/auth": "*",
     "elysia": "^1.1.16",
     "@elysiajs/jwt": "^1.1.1",
     "@elysiajs/swagger": "^1.1.1",
     "bcrypt-ts": "^5.0.2"
   },
   "devDependencies": {
-    "@saas/tsconfig": "workspace:*",
+    "@saas/tsconfig": "*",
     "@types/bun": "latest",
     "prisma": "^5.20.0"
   }

@@ -13,6 +13,7 @@ export const getMembership = new Elysia().use(auth).get(
 			membership: {
 				id: membership.id,
 				role: membership.role,
+				userId,
 				organizationId: membership.organizationId,
 			},
 		};
@@ -27,6 +28,7 @@ export const getMembership = new Elysia().use(auth).get(
 			membership: t.Object({
 				id: t.String(),
 				role: t.String(),
+				userId: t.String(),
 				organizationId: t.String(),
 			}),
 		}),

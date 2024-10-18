@@ -1,22 +1,23 @@
-'use server'
+'use server';
 
-import { actionClient } from "@/lib/next-safe-action";
-import { zfd } from "zod-form-data";
-import { redirect } from "next/navigation";
+import { actionClient } from '@/lib/next-safe-action';
+import { env } from '@saas/env';
+import { redirect } from 'next/navigation';
+import { zfd } from 'zod-form-data';
 
 export const signInWithGithubAction = actionClient
-  .schema(zfd.formData({}))
-  .action(async () : Promise<void> => {
-    const githubSignInURL = new URL(
-      'login/oauth/authorize',
-      'https://github.com'
-    );
+	.schema(zfd.formData({}))
+	.action(async (): Promise<void> => {
+		const githubSignInURL = new URL(
+			'login/oauth/authorize',
+			'https://github.com'
+		);
 
-    githubSignInURL.searchParams.set('client_id', '611d6698a8186d1fac38');
-    githubSignInURL.searchParams.set(
-      'redirect_uri',
-      'http://localhost:3000/api/auth/callback'
-    );
-    githubSignInURL.searchParams.set('scope', 'user');
-    redirect(githubSignInURL.toString());
-  });
+		githubSignInURL.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID);
+		githubSignInURL.searchParams.set(
+			'redirect_uri',
+			env.GITHUB_OAUTH_REDIRECT_URL
+		);
+		githubSignInURL.searchParams.set('scope', 'user');
+		redirect(githubSignInURL.toString());
+	});

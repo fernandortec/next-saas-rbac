@@ -21,7 +21,7 @@ export async function ProfileButton() : Promise<ReactElement> {
           <span className="text-xs text-muted-foreground">{user.email}</span>
         </div>
 
-        <Avatar>
+        <Avatar className='size-8'>
           {user.avatarUrl && (
             <AvatarImage src="https://github.com/fernandortec.png"/>
           )}

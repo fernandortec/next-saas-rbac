@@ -1,4 +1,4 @@
-import { projectSchema } from '@/models/project';
+import { projectSchema } from '../models/project';
 import z from 'zod';
 
 export const projectSubject = z.tuple([
