@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
 import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 import '../public/globals.css';
+import { ThemeProvider } from 'next-themes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,10 +15,12 @@ interface RootLayoutProps {
 	children: ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
+export default function RootLayÞout({
+	children,
+}: RootLayoutProps): JSX.Element {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={`${inter.className} mx-auto w-full max-w-[1200px]`}>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="dark"

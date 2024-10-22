@@ -8,12 +8,13 @@ export interface Organizations {
 }
 
 type GetOrganizationsResponse = {
-	organizations: Organizations[]
+	organizations: Organizations[];
 };
 
 export async function GetOrganizations(): Promise<GetOrganizationsResponse> {
 	const result = await api
 		.get<GetOrganizationsResponse>('organizations')
 		.json();
+
 	return result;
 }

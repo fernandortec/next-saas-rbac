@@ -11,10 +11,9 @@ export const auth = new Elysia()
 			try {
 				if (!headers.authorization)
 					throw new UnauthorizedError('No auth token is provided');
-				
+
 				const { sub } = await jwtVerify(headers.authorization);
 				if (!sub) throw new UnauthorizedError('User does not exists in token');
-
 				return { userId: sub };
 			} catch (error) {
 				throw new UnauthorizedError('Could not authenticate user, login again');

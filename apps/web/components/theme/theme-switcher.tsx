@@ -12,17 +12,14 @@ import { useTheme } from 'next-themes';
 import type { ReactElement } from 'react';
 
 export function ThemeSwitcher(): ReactElement {
-	const { setTheme, resolvedTheme } = useTheme();
+	const { setTheme } = useTheme();
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant="ghost" size="icon">
-					{resolvedTheme === 'light' ? (
-						<Sun className="size-4" />
-					) : (
-						<Moon className="size-4" />
-					)}
+					<Sun className="size-4 dark:invisible dark:size-0" />
+					<Moon className="invisible size-0 dark:visible dark:size-4" />
 					<span className="sr-only">Toggle theme</span>
 				</Button>
 			</DropdownMenuTrigger>

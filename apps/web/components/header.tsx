@@ -10,7 +10,7 @@ export async function Header(): Promise<ReactElement> {
 	const permissions = await ability();
 
 	return (
-		<div className="mx-auto flex max-w-[1200px] items-center justify-between">
+		<div className="mx-auto flex max-w-[1200px] items-center justify-between py-4 border-b pb-2 mb-4 dark:border-gray-700">
 			<div className="flex items-center gap-3">
 				<Ship className="w-6 h-6" />
 				<Slash className="size-3 -rotate-[24deg] text-border" />

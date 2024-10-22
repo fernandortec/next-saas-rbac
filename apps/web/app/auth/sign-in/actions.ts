@@ -16,7 +16,7 @@ const signInSchema = zfd.formData({
 
 export const signInWithPasswordAction = actionClient
 	.schema(signInSchema, {
-		handleValidationErrorsShape: (ve, utils) =>
+		handleValidationErrorsShape: async (ve, utils) =>
 			flattenValidationErrors(ve).fieldErrors,
 	})
 	.action(
